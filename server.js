@@ -6,6 +6,13 @@ app.get('/', (req, res) => {
   res.send('Hello from the Express Server in test.agent!');
 });
 
+app.get('/ping', (req, res) => {
+  res.json({
+    success: true,
+    message: 'pong',
+  });
+});
+
 app.listen(port, () => {
   console.log(`Express server listening on http://localhost:${port}`);
 });
