@@ -1,0 +1,17 @@
+{
+  "name": "test.agent",
+  "version": "1.0.0",
+  "description": "Agent repository with Express server and Swagger documentation.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: Fail in tests\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "swagger-ui-express": "^4.6.3"
+  },
+  "devDependencies": {
+    "swagger-jsdoc": "^4.17.0"
+  }
+}
