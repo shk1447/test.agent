@@ -1,15 +1,33 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json'); // Swagger 정의 파일 (새로 추가될 파일)
+const { initDb } = require('./db');
+
+// Handle missing swagger.json safely
+let swaggerDocument;
+try {
+  swaggerDocument = require('./swagger.json');
+} catch (e) {
+  console.warn('swagger.json not found, disabling swagger docs.');
+  swaggerDocument = {};
+}
 
 const app = express();
 const port = 3000;
 
+// Initialize Database
+initDb().then(() => {
+  console.log('Database initialized.');
+}).catch(err => {
+  console.error('Database initialization failed:', err);
+});
+
 // 1. Swagger UI 적용
-app.use(
-  '/api-docs',
-  swaggerUi(swaggerDocument)
-);
+if (Object.keys(swaggerDocument).length > 0) {
+  app.use(
+    '/api-docs',
+    swaggerUi(swaggerDocument)
+  );
+}
 
 // 2. 기본 라우트
 app.get('/', (req, res) => {
